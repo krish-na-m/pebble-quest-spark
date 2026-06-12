@@ -9,8 +9,38 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as RewardsRouteImport } from './routes/rewards'
+import { Route as QuestMapRouteImport } from './routes/quest-map'
+import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as LessonRouteImport } from './routes/lesson'
+import { Route as HomeRouteImport } from './routes/home'
 import { Route as IndexRouteImport } from './routes/index'
 
+const RewardsRoute = RewardsRouteImport.update({
+  id: '/rewards',
+  path: '/rewards',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QuestMapRoute = QuestMapRouteImport.update({
+  id: '/quest-map',
+  path: '/quest-map',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LessonRoute = LessonRouteImport.update({
+  id: '/lesson',
+  path: '/lesson',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HomeRoute = HomeRouteImport.update({
+  id: '/home',
+  path: '/home',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +49,90 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/home': typeof HomeRoute
+  '/lesson': typeof LessonRoute
+  '/profile': typeof ProfileRoute
+  '/quest-map': typeof QuestMapRoute
+  '/rewards': typeof RewardsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/home': typeof HomeRoute
+  '/lesson': typeof LessonRoute
+  '/profile': typeof ProfileRoute
+  '/quest-map': typeof QuestMapRoute
+  '/rewards': typeof RewardsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/home': typeof HomeRoute
+  '/lesson': typeof LessonRoute
+  '/profile': typeof ProfileRoute
+  '/quest-map': typeof QuestMapRoute
+  '/rewards': typeof RewardsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/home' | '/lesson' | '/profile' | '/quest-map' | '/rewards'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/home' | '/lesson' | '/profile' | '/quest-map' | '/rewards'
+  id:
+    | '__root__'
+    | '/'
+    | '/home'
+    | '/lesson'
+    | '/profile'
+    | '/quest-map'
+    | '/rewards'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  HomeRoute: typeof HomeRoute
+  LessonRoute: typeof LessonRoute
+  ProfileRoute: typeof ProfileRoute
+  QuestMapRoute: typeof QuestMapRoute
+  RewardsRoute: typeof RewardsRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/rewards': {
+      id: '/rewards'
+      path: '/rewards'
+      fullPath: '/rewards'
+      preLoaderRoute: typeof RewardsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/quest-map': {
+      id: '/quest-map'
+      path: '/quest-map'
+      fullPath: '/quest-map'
+      preLoaderRoute: typeof QuestMapRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lesson': {
+      id: '/lesson'
+      path: '/lesson'
+      fullPath: '/lesson'
+      preLoaderRoute: typeof LessonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/home': {
+      id: '/home'
+      path: '/home'
+      fullPath: '/home'
+      preLoaderRoute: typeof HomeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,17 +145,12 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  HomeRoute: HomeRoute,
+  LessonRoute: LessonRoute,
+  ProfileRoute: ProfileRoute,
+  QuestMapRoute: QuestMapRoute,
+  RewardsRoute: RewardsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
