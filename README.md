@@ -2,6 +2,8 @@
 
 A gamified, mobile-first learning adventure for kids ages 6–12. Built with warm Indian-inspired visuals, friendly mascots, and bite-sized lessons across Stories, Math, and Science.
 
+# Live Demo : https://pebble-quest-spark.lovable.app
+
 ## Features
 
 - **Onboarding** — Pick a name and choose a buddy mascot (Bunty, Meera, or Arjun).
